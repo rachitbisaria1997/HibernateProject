@@ -55,3 +55,24 @@ when called session.delete(obj) then its deleted from DB. still associated in se
 its removed state
 
 HQL is database independent. HQL queries work with oracle, my SQL server
+
+what is LazyInitializationException ?
+
+@Entity
+class Department {
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    private List<Employee> employees;
+}
+
+
+Department dept = session.get(Department.class, 1);
+
+session.close();
+
+int size = dept.getEmployees().size();
+This line will throw LazyInitializationException
+
+to avoid this, use Eager fetching
+
+@OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
+private List<Employee> employees;
