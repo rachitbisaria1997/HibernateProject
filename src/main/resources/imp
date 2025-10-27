@@ -1,0 +1,57 @@
+hibernate is built on ORM framework.
+
+1. using hibernate, user does not need to create and manage table. Java classes or POJO are automatically
+mapped to tables. just need to provide DB and connection details. It will connect with database by providing config
+in hibernate.cfg.xml file
+2. user doesnt need to write any SQL queries manually like in JDBC.
+3. hibernate provides caching - 1st, 2nd and 3rd level
+
+common annotations in hibernate
+1. @Entity - to mark a class as entity
+2. @Table -  use to change the table name.
+3. @Id - use to mark column as primary key
+4. @GeneratedValue - generates value for primary key. it will automatically increment, no need to set it manually
+5. @Column - it can be used to specify column mappings. to change column name in associated table in DB
+6. @Transient - tells hibernate not to save this field in DB
+7. @Temporal - tells hibernate in which the date needs to be saved
+8. @Lob - tells hibernate that this is a large object not a simple object
+9. @OneToOne, @OneToMany, @ManyToOne, @JoinColumn
+
+XML mappings in hibernate.cfg.xml.. if you don’t provide mappings in hibernate.cfg.xml (or via annotations + auto-scanning),
+Hibernate will not know about your entity classes, so it will not create the corresponding tables.
+
+<mapping class="com.tut.Student"/>
+<mapping class="com.tut.Address"/>
+
+<property name="hibernate.hbm2ddl.auto">update</property>
+
+if its update then table will be created if not exists
+if its create then table will be created everytime
+
+session.get() - returns null if object is not found in cache as well in DB..
+if data exists in session cache, it will not hit the database
+
+session.load() - if object is not found then it will throw ObjectNotFoundException.
+it returns a proxy data in place and only initializes / hit SQL query when any method other than
+ex stud.getName() is called on entity object. its called lazy initialization.. increases performance
+
+Hibernate lifecycle states
+
+1. transient
+2. persistent
+3. detached
+4. removed state
+
+When a new object is created and having some values set using setters. its transient state.
+not associated with data or session
+
+when session.save(obj) persist(), obj is associated with session - it goes to persistent state.
+data is avail in session and database
+
+when session.close() or session.clear() is called then object goes to detached state
+when called session.update() then it goes back to persistent state
+
+when called session.delete(obj) then its deleted from DB. still associated in session
+its removed state
+
+HQL is database independent. HQL queries work with oracle, my SQL server
