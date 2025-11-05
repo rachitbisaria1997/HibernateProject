@@ -3,7 +3,6 @@ package com.caching;
 import com.tut.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class FirstDemo {
