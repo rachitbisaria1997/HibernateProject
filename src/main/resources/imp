@@ -48,6 +48,10 @@ not associated with data or session
 when session.save(obj) persist(), obj is associated with session - it goes to persistent state.
 data is avail in session and database
 
+
+session.save() - saves the entity and returns its iD
+session.persist() - saves the entity, does not return any ID
+
 when session.close() or session.clear() is called then object goes to detached state
 when called session.update() then it goes back to persistent state
 
